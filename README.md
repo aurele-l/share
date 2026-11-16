@@ -68,3 +68,16 @@ build step and no workflow. Edit `model.json`, not the HTML.
 
 Model-viewer is vendored at `assets/vendor/model-viewer.min.js` (4.4.0, with its
 licence) so the site does not depend on a CDN.
+
+## Licence
+
+- **Models** — `models/`, including every `.glb` and `.stl`: [CC BY-NC 4.0](LICENSE).
+  Print them, modify them, pass them on; no commercial use.
+- **Site code** — `assets/`, `tools/`, the build scripts: [MIT](LICENSE-MIT).
+
+The container design is not mine. It is
+[*Zwift Ride Containers/Storage*](https://makerworld.com/en/models/2250329-zwift-ride-containers-storage)
+by **abuck** on MakerWorld, licensed CC BY-NC 4.0. The tuned variant adds the
+towel hooks and the vents; the copy in `models/zwift-towel-hooks/source.glb` is
+that mesh with its open boundary filled so it renders as a solid — nothing else
+was changed.

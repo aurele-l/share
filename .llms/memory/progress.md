@@ -8,6 +8,8 @@
   block under the lede on the model page).
 - Not indexed: `robots.txt` disallows everything; every page carries
   `noindex, nofollow`.
+- Licensed: models CC BY-NC 4.0 (`LICENSE`), site code MIT (`LICENSE-MIT`);
+  footer and README state the split, and the model page credits abuck.
 - Repo is committed and pushed to https://github.com/aurele-l/shared_3d_models;
   Pages is `main` / root. Site: https://aurele-l.github.io/shared_3d_models/
 - Sizes: source 0.88 MB, tuned 0.96 MB, section 15 KB, cut 36 KB, STL 2.66 MB.

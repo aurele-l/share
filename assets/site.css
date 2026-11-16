@@ -66,6 +66,9 @@ h1, h2, h3 { line-height: 1.2; margin: 0; font-weight: 600; letter-spacing: -0.0
   font-size: 14px;
 }
 .site-foot p { margin: 0; }
+.site-foot .licence { margin-top: 6px; color: color-mix(in srgb, var(--muted) 75%, transparent); }
+.site-foot .licence a { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--muted) 50%, transparent); }
+.site-foot .licence a:hover { color: var(--accent); }
 
 /* ---------------------------------------------------------------- blocks */
 

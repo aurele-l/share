@@ -106,6 +106,19 @@ def pair_block(
     return f'<section class="block">{head}{note_html}<div class="{cls}">{body}</div></section>'
 
 
+def licence_line(site: dict) -> str:
+    """The licence split: models are CC BY-NC, the site code is MIT."""
+    licences = site.get("licence") or {}
+    parts = []
+    for key, prefix in (("models", "Models"), ("code", "site code")):
+        entry = licences.get(key)
+        if entry:
+            parts.append(f'{prefix} <a href="{esc(entry["url"])}">{esc(entry["label"])}</a>')
+    if not parts:
+        return ""
+    return f'<p class="licence">{" &middot; ".join(parts)}</p>'
+
+
 def page(*, site: dict, title: str, description: str, prefix: str, body: str) -> str:
     full = title if title == site["title"] else f"{title} \u2014 {site['title']}"
     return f"""<!doctype html>
@@ -130,7 +143,7 @@ def page(*, site: dict, title: str, description: str, prefix: str, body: str) ->
   <nav><a href="{esc(site["repo"])}">GitHub</a></nav>
 </div></header>
 {body}
-<footer class="site-foot"><div class="wrap"><p>{esc(site["footer"])}</p></div></footer>
+<footer class="site-foot"><div class="wrap"><p>{esc(site["footer"])}</p>{licence_line(site)}</div></footer>
 </body>
 </html>
 """

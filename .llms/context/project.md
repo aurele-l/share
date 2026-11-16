@@ -51,6 +51,9 @@ node tools/e2e.mjs models/<slug>/index.html tools/link-check.js   # camera-link 
   Remove both together, or the crawl behaves differently from the meta tag.
 - **Attribution is a licence condition, not a courtesy.** A model adapted from
   someone else's carries a `source` block: title, link, author, licence.
+- **The licence split is load-bearing.** `models/` is CC BY-NC 4.0, `assets/`
+  and `tools/` are MIT. Never relicense the model content under anything
+  stricter or commercial — it derives from a CC BY-NC work.
 - **Parts of the wording are measured, not guessed**: dimensions, volumes and
   print claims in a `model.json` come from the workshop's gate output.
 

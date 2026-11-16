@@ -74,3 +74,16 @@ MakerWorld, licensed **CC BY-NC 4.0** (checked 2026-11-16). Attribution is a
 condition of that licence, so it is not optional polish; the NC term means no
 ads, sponsorship or paid downloads built on this part. Any site-wide licence
 must therefore be at most CC BY-NC.
+
+## D8 — Models CC BY-NC 4.0, site code MIT
+
+**Chosen:** `LICENSE` is the CC BY-NC 4.0 text and covers `models/` — every GLB,
+every STL, and the adaptation in them. `LICENSE-MIT` covers `assets/` and
+`tools/`. The page footer and the README both state the split.
+**Why:** the source design is CC BY-NC (D7), and §3(a)(2) forbids sharing the
+material or an adaptation under tighter terms. No licence file means all rights
+reserved, which is tighter. CC BY-NC keeps attribution and the non-commercial
+limit; MIT is the right licence for code that shares no copyright with the model.
+**Cost:** the repo can never carry ads, sponsorship or paid downloads without
+re-licensing the model content. Relicensing the models under anything stricter
+than CC BY-NC would breach the licence they derive from.

@@ -2,9 +2,10 @@
 
 ## The viewer
 
-`model-viewer` 4.4.0, vendored at `assets/vendor/model-viewer.min.js` (1.07 MB,
-BSD-3-Clause header inside; package licence next to it). No CDN: the site works
-offline and cannot break on an upstream release change.
+`model-viewer` 4.4.0, vendored at `assets/vendor/model-viewer.min.js` (1.07 MB).
+model-viewer is Apache-2.0 — `assets/vendor/LICENSE-model-viewer` — and the
+bundle's own header names the lit library it contains as BSD-3-Clause. No CDN:
+the site works offline and cannot break on an upstream release change.
 
 Things measured in this repo's Chrome (2026-11-16), all of which cost a wrong
 assumption first:
@@ -55,5 +56,5 @@ source sits at z −40…+40, the printed STL at z 0…80, so both land at y 0�
 
 GitHub Pages project site → `https://<user>.github.io/<repo>/`. Every asset
 reference is relative (`../../assets/…` from a model page). `.nojekyll` at the
-root. Files up to 100 MB are accepted; this repo is ~5 MB, and keeping it that
-way is why GLBs are published uncompressed only while they stay small.
+root. Files up to 100 MB are accepted; the tracked tree is 5.65 MB, and keeping
+it that size is why GLBs are published uncompressed while they stay small.

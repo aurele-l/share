@@ -138,7 +138,7 @@ def page(*, site: dict, title: str, description: str, prefix: str, body: str) ->
 # ---------------------------------------------------------------- pages
 
 
-def render_model(slug: str, data: dict, site: dict) -> str:
+def render_model(data: dict, site: dict) -> str:
     prefix = "../../"
     parts = [
         '<main class="wrap">',
@@ -256,7 +256,7 @@ def build(*, verbose: bool = True) -> list[Path]:
 
     for slug, data in models:
         target = MODELS / slug / "index.html"
-        target.write_text(render_model(slug, data, site), encoding="utf-8")
+        target.write_text(render_model(data, site), encoding="utf-8")
         written.append(target)
 
     gallery = ROOT / "index.html"

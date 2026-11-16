@@ -2,21 +2,29 @@
   "order": 10,
   "title": "Zwift Ride container — towel hooks",
   "date": "2026-11-16",
-  "summary": "One towel hook on each side wall of the Zwift Ride bottle container, merged into the container mesh so the part prints as one piece.",
-  "lede": "A printed add-on for the Zwift Ride bottle container: a hook on each side wall, merged into the container mesh so the whole thing prints as one piece. The hooks add 28 mm of width and print without supports.",
+  "summary": "One towel hook on each side wall of the Zwift Ride storage containers, merged into the mesh so the part prints as one piece.",
+  "lede": "A printed add-on for the Zwift Ride storage containers — the pair of side-by-side boxes that sit around the trainer mount. A hook on each side wall, merged into the mesh so the whole thing prints as one piece; the hooks add 28 mm of width and print without supports.",
+  "source": {
+    "title": "Zwift Ride Containers/Storage",
+    "url": "https://makerworld.com/en/models/2250329-zwift-ride-containers-storage",
+    "author": "abuck",
+    "site": "MakerWorld",
+    "licence": "CC BY-NC 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-nc/4.0/"
+  },
   "meta": "229 × 108.2 × 80 mm · 181.4 cm³",
   "thumb": "tuned.glb",
   "thumbOrbit": "30deg 72deg 60%",
   "compare": {
-    "title": "As shipped, and tuned",
-    "note": "Left is the container as Zwift ships it. Right is the same part with a hook merged into each side wall, Ø20 vents cut through the side panels, and the hook's root widened into a 4 mm collar. With the cameras linked, dragging either tile keeps both on the same angle — the only difference you are looking at is the part.",
+    "title": "Original, and tuned",
+    "note": "Left is the original design. Right is the same part with a hook merged into each side wall, Ø20 vents cut through the side panels, and the hook's root widened into a 4 mm collar. With the cameras linked, dragging either tile keeps both on the same angle — the only difference you are looking at is the part.",
     "views": [
       {
         "glb": "source.glb",
-        "label": "As shipped",
+        "label": "Original design",
         "detail": "201 × 108.4 × 80 mm",
         "orbit": "20deg 74deg 105%",
-        "alt": "The Zwift Ride container as supplied, without hooks"
+        "alt": "The original Zwift Ride storage container design, without hooks"
       },
       {
         "glb": "tuned.glb",

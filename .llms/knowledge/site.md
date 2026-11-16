@@ -52,6 +52,16 @@ and independence after unlinking.
 Bed-aligning is what makes the source and the tuned part share a frame: the 3MF
 source sits at z −40…+40, the printed STL at z 0…80, so both land at y 0…0.08 m.
 
+## Search engines
+
+The site is not indexed: `robots.txt` disallows everything, and every generated
+page carries `<meta name="robots" content="noindex, nofollow">`. Both are there
+because one can be bypassed: a crawler that ignores `Disallow` still obeys the
+meta tag, and one that fetches the page reads the tag before the next crawl.
+GitHub Pages cannot set `X-Robots-Tag`, so the meta tag is the only header-level
+signal available. The public GitHub repo itself is still indexable — nothing on
+a free plan prevents that.
+
 ## Site paths
 
 GitHub Pages project site → `https://<user>.github.io/<repo>/`. Every asset

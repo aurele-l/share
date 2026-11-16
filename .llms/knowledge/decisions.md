@@ -56,13 +56,21 @@ prompt's wobble moves the camera seconds after load.
 
 ## D6 — The third-party source mesh is published
 
-**Chosen:** `source.glb` (the Zwift container as shipped, repaired by boundary
+**Chosen:** `source.glb` (the original container geometry, repaired by boundary
 fill only) is on the page, because seeing the part next to the tuned one is the
 point of the page.
 **Rejected:** publishing only the derived part.
 **Why:** explicit request (2026-11-16). This overrides the workshop's default
 (`3d_modelling/.gitignore`: third-party source models are "never ours to
-publish"). It is Zwift's geometry, redistributed for reference: if that becomes
-a problem, delete the `source.glb` artifact and the compare view that shows it —
-one edit in `model.json`, one `publish.py` run. The printable part is ours and
-is unaffected.
+publish"). The licence question is settled by D7.
+
+## D7 — The original model is CC BY-NC 4.0: credit it, stay non-commercial
+
+**Chosen:** the model page opens with a `source` block — original title, link,
+author and licence — and this site stays non-commercial.
+**Supersedes:** the "if that becomes a problem" escape in D6.
+**Why:** the original is "Zwift Ride Containers/Storage" by **abuck** on
+MakerWorld, licensed **CC BY-NC 4.0** (checked 2026-11-16). Attribution is a
+condition of that licence, so it is not optional polish; the NC term means no
+ads, sponsorship or paid downloads built on this part. Any site-wide licence
+must therefore be at most CC BY-NC.

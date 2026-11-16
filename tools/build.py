@@ -116,6 +116,7 @@ def page(*, site: dict, title: str, description: str, prefix: str, body: str) ->
 <title>{esc(full)}</title>
 <meta name="description" content="{esc(description)}">
 <meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="{esc(full)}">
 <meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{prefix}assets/icon.svg" type="image/svg+xml">
@@ -138,6 +139,24 @@ def page(*, site: dict, title: str, description: str, prefix: str, body: str) ->
 # ---------------------------------------------------------------- pages
 
 
+def source_line(source: dict) -> str:
+    """Attribution for a model that is an adaptation of someone else's work."""
+    title = esc(source["title"])
+    if source.get("url"):
+        title = f'<a href="{esc(source["url"])}">{title}</a>'
+    line = f"Adapted from {title}"
+    if source.get("author"):
+        line += f' by {esc(source["author"])}'
+    if source.get("site"):
+        line += f' on {esc(source["site"])}'
+    if source.get("licence"):
+        licence = esc(source["licence"])
+        if source.get("licenceUrl"):
+            licence = f'<a href="{esc(source["licenceUrl"])}">{licence}</a>'
+        line += f", licensed {licence}"
+    return f'<p class="source">{line}.</p>'
+
+
 def render_model(data: dict, site: dict) -> str:
     prefix = "../../"
     parts = [
@@ -149,6 +168,8 @@ def render_model(data: dict, site: dict) -> str:
     parts.append(f'<h1>{esc(data["title"])}</h1>')
     if data.get("lede"):
         parts.append(f'<p class="lede">{esc(data["lede"])}</p>')
+    if data.get("source"):
+        parts.append(source_line(data["source"]))
     parts.append("</div>")
 
     downloads = data.get("downloads") or []

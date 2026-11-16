@@ -46,6 +46,11 @@ node tools/e2e.mjs models/<slug>/index.html tools/link-check.js   # camera-link 
 - **`publish.py` never edits the modelling repo.** It only reads from it.
 - **A GLB is only published if its mesh is watertight**, except a copy of a
   file that is already web-ready.
+- **The site is deliberately not indexed.** `robots.txt` disallows everything
+  and every page carries `<meta name="robots" content="noindex, nofollow">`.
+  Remove both together, or the crawl behaves differently from the meta tag.
+- **Attribution is a licence condition, not a courtesy.** A model adapted from
+  someone else's carries a `source` block: title, link, author, licence.
 - **Parts of the wording are measured, not guessed**: dimensions, volumes and
   print claims in a `model.json` come from the workshop's gate output.
 

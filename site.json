@@ -1,0 +1,7 @@
+{
+  "title": "3D models",
+  "tagline": "Parametric parts, modelled in code and printed at home.",
+  "description": "3D-printable models you can orbit in the browser and download as STL.",
+  "repo": "https://github.com/aurele-l/shared_3d_models",
+  "footer": "Drag a model to orbit, scroll to zoom. Download the STL to print your own."
+}

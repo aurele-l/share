@@ -1,0 +1,11 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local preview and verification scratch
+.verify/
+
+# OS noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,19 @@
+[project]
+name = "shared-3d-models"
+version = "0.0.0"
+description = "Publish web-ready GLBs and the static page that shows them."
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    # pinned to the versions the modelling repo builds against, so the exported
+    # GLBs stay byte-comparable with the ones its own viewer produces
+    "trimesh==5.2.1",
+    "numpy",
+    "pymeshfix==0.18.1",
+    # trimesh needs a graph engine for split(); it is not a hard dependency
+    "networkx",
+    # ... and scipy for body_count/fix_normals
+    "scipy",
+]
+
+[tool.uv]
+package = false

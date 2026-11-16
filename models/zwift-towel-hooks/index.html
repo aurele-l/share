@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zwift Ride container — towel hooks — 3D models</title>
+<meta name="description" content="One towel hook on each side wall of the Zwift Ride bottle container, merged into the container mesh so the part prints as one piece.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Zwift Ride container — towel hooks — 3D models">
+<meta property="og:description" content="One towel hook on each side wall of the Zwift Ride bottle container, merged into the container mesh so the part prints as one piece.">
+<link rel="icon" href="../../assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="module" src="../../assets/vendor/model-viewer.min.js"></script>
+<script type="module" src="../../assets/viewer.js"></script>
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="mark" href="../../index.html">3D models</a>
+  <nav><a href="https://github.com/aurele-l/shared_3d_models">GitHub</a></nav>
+</div></header>
+<main class="wrap">
+<div class="title-block">
+<p class="eyebrow">2026-11-16</p>
+<h1>Zwift Ride container — towel hooks</h1>
+<p class="lede">A printed add-on for the Zwift Ride bottle container: a hook on each side wall, merged into the container mesh so the whole thing prints as one piece. The hooks add 28 mm of width and print without supports.</p>
+</div>
+<div class="actions"><a class="button" href="towel-hook-tuned.stl" download>towel-hook-tuned.stl<span>2.7 MB</span></a></div>
+<section class="block"><div class="block-head"><h2>As shipped, and tuned</h2><label class="toggle"><input type="checkbox" data-link-toggle checked> cameras linked</label></div><p class="block-note">Left is the container as Zwift ships it. Right is the same part with a hook merged into each side wall, Ø20 vents cut through the side panels, and the hook&#x27;s root widened into a 4 mm collar. With the cameras linked, dragging either tile keeps both on the same angle — the only difference you are looking at is the part.</p><div class="pair"><figure class="view">
+  <model-viewer src="source.glb" alt="The Zwift Ride container as supplied, without hooks" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="20deg 74deg 105%" data-link="compare"></model-viewer>
+  <figcaption><b>As shipped</b><span>201 × 108.4 × 80 mm</span></figcaption>
+</figure><figure class="view">
+  <model-viewer src="tuned.glb" alt="The same container with a printed towel hook on each side wall" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="20deg 74deg 105%" data-link="compare" data-lead></model-viewer>
+  <figcaption><b>Tuned, with hooks</b><span>229 × 108.2 × 80 mm · 181.4 cm³</span></figcaption>
+</figure></div></section>
+<section class="block"><h2>The hook itself</h2><p class="block-note">The drawn hook has a 3 mm under-lip radius and a straight root. The printed one has a 6 mm radius and a 4 mm collar that spreads the peg&#x27;s load 40 mm along the wall. The section is the whole difference.</p><div class="pair detail"><figure class="view detail">
+  <model-viewer src="tuned-section.glb" alt="Cross-section through the hook peg and its root collar" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="0deg 90deg 100%" camera-projection="orthographic" loading="lazy"></model-viewer>
+  <figcaption><b>Section through the peg</b><span>under-lip 6 mm · collar 4 mm</span></figcaption>
+</figure><figure class="view detail">
+  <model-viewer src="tuned-cut.glb" alt="Close-up of the hook from below the lip" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="52deg 116deg 100%" loading="lazy"></model-viewer>
+  <figcaption><b>From under the lip</b><span>close-up</span></figcaption>
+</figure></div></section>
+<div class="cols"><section><h2>Specs</h2><dl class="specs"><div><dt>Overall</dt><dd>229 × 108.2 × 80 mm</dd></div><div><dt>Volume</dt><dd>181.4 cm³</dd></div><div><dt>Walls</dt><dd>3.0 mm side, 4.7 mm floor</dd></div><div><dt>Hook</dt><dd>45° peg, 4 mm thick, 10 mm clear of the wall</dd></div><div><dt>Protrusion</dt><dd>+14 mm per side</dd></div><div><dt>Print</dt><dd>PLA or PETG, 0.4 mm nozzle, no supports</dd></div></dl></section><section class="prose"><h2>Why it is built this way</h2><p>A towel on a hook is a peel load: the pull is perpendicular to the surface the hook sits on. On a 3 mm panel that is the failure mode — the hook survives and the wall cracks out around it. So the hooks sit at the top of the side walls, where the pull goes into the rim instead of bending a free panel, and the root is a wide pad rather than a thin stem.</p><p>Layer lines run horizontally, which puts the arm&#x27;s bending tension along the layers instead of across them. The web under the arm is 45°, the stop at its end is 45°, and the only horizontal face below the arm is an 8 mm strip that bridges — so the part prints without supports.</p><p>The source mesh is not manifold: 3 934 self-intersecting triangles and an uncapped face on the central boss. Bambu Studio repairs that silently, a boolean engine will not, so the hook was merged into a mesh repaired by filling the open boundary and nothing else. A heavier repair bought watertightness by deleting the embossing and a Z cut-out, which is why the mesh is proven against frozen probes rather than trusted after one render.</p></section></div>
+</main>
+<footer class="site-foot"><div class="wrap"><p>Drag a model to orbit, scroll to zoom. Download the STL to print your own.</p></div></footer>
+</body>
+</html>

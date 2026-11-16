@@ -6,7 +6,7 @@
   "lede": "A printed add-on for the Zwift Ride bottle container: a hook on each side wall, merged into the container mesh so the whole thing prints as one piece. The hooks add 28 mm of width and print without supports.",
   "meta": "229 × 108.2 × 80 mm · 181.4 cm³",
   "thumb": "tuned.glb",
-  "thumbOrbit": "22deg 74deg 95%",
+  "thumbOrbit": "30deg 72deg 60%",
   "compare": {
     "title": "As shipped, and tuned",
     "note": "Left is the container as Zwift ships it. Right is the same part with a hook merged into each side wall, Ø20 vents cut through the side panels, and the hook's root widened into a 4 mm collar. With the cameras linked, dragging either tile keeps both on the same angle — the only difference you are looking at is the part.",

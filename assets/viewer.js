@@ -28,8 +28,10 @@ async function whenLoaded(mv) {
 
 function cameraString(mv) {
   const orbit = mv.getCameraOrbit();
-  const parts = [`${orbit.theta}rad`, `${orbit.phi}rad`, `${orbit.radius}m`];
-  return parts.join(" ");
+  // angles MUST go out in degrees: the orbit parser ignores 'rad'
+  // (silently keeping the old camera), which broke every copy until now.
+  const deg = (r) => `${(r * 180) / Math.PI}deg`;
+  return `${deg(orbit.theta)} ${deg(orbit.phi)} ${orbit.radius}m`;
 }
 
 function applyCamera(dst, orbit, target) {
@@ -72,19 +74,67 @@ async function linkedTiles(group) {
   }
 
   // from here on, whichever tile the user touches is the source of truth;
-  // the mute flag drops the camera-change events our own copy provokes
+  // the mute flag drops the camera-change events our own copy provokes.
+  // try/finally: a throw in copy must never stick the mute flag on,
+  // or every later change is dropped and the tiles stay split forever.
   let mute = false;
+  const lastTouch = new Map(group.map((mv) => [mv, 0]));
   const push = (src) => {
     if (mute || !enabled()) return;
     mute = true;
-    for (const dst of group) if (dst !== src) copy(src, dst);
-    setTimeout(() => {
-      mute = false;
-    }, 120);
+    try {
+      for (const dst of group) if (dst !== src) copy(src, dst);
+    } finally {
+      setTimeout(() => {
+        mute = false;
+      }, 120);
+    }
+  };
+  const sameView = (a, b) => {
+    const oa = a.getCameraOrbit();
+    const ob = b.getCameraOrbit();
+    if (!near(oa, ob)) return false;
+    if (!a.getCameraTarget || !b.getCameraTarget) return true;
+    const ta = a.getCameraTarget();
+    const tb = b.getCameraTarget();
+    return (
+      Math.abs(ta.x - tb.x) < 1e-4 &&
+      Math.abs(ta.y - tb.y) < 1e-4 &&
+      Math.abs(ta.z - tb.z) < 1e-4
+    );
   };
   for (const mv of group) {
-    mv.addEventListener("camera-change", () => push(mv));
+    mv.addEventListener("camera-change", () => {
+      lastTouch.set(mv, Date.now());
+      push(mv);
+    });
   }
+  // Heartbeat: heals any divergence the event path drops (a touch gesture
+  // fires a burst of camera-change events and the 120 ms mute window eats
+  // the middle of the burst; damping tails fire after it clears). Only the
+  // most-recently touched tile ever sources a copy, and only while its last
+  // touch is under two seconds old - with no fresh interaction the heartbeat
+  // stays hands-off so it can never fight the user or pin tiles.
+  setInterval(() => {
+    if (!enabled()) return;
+    let src = null;
+    let when = 0;
+    for (const entry of lastTouch) {
+      if (entry[1] > when) {
+        src = entry[0];
+        when = entry[1];
+      }
+    }
+    if (!src || Date.now() - when > 2000) return;
+    mute = true;
+    try {
+      for (const dst of group) {
+        if (dst !== src && !sameView(src, dst)) copy(src, dst);
+      }
+    } finally {
+      mute = false;
+    }
+  }, 500);
 }
 
 for (const name of new Set(viewers.map((mv) => mv.dataset.link).filter(Boolean))) {

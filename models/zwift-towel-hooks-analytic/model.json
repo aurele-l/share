@@ -12,7 +12,7 @@
     "licence": "CC BY-NC 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-nc/4.0/"
   },
-  "meta": "229 × 108 × 80 mm · 182.7 cm³",
+  "meta": "229 × 108 × 80 mm · 182.6 cm³",
   "thumb": "proper.glb",
   "thumbOrbit": "30deg 72deg 60%",
   "compare": {
@@ -29,7 +29,7 @@
       {
         "glb": "proper.glb",
         "label": "Proper rebuild",
-        "detail": "229 × 107.9 × 80 mm · 182.7 cm³ · 180 faces",
+        "detail": "229 × 107.9 × 80 mm · 182.6 cm³ · 180 faces",
         "orbit": "20deg 74deg 105%",
         "alt": "The same part rebuilt as proper CAD, one face per surface",
         "lead": true
@@ -61,10 +61,10 @@
   ],
   "specs": [
     ["Overall", "229 × 107.9 × 80 mm"],
-    ["Volume", "182.7 cm³"],
+    ["Volume", "182.6 cm³"],
     ["Faces", "134 body · 180 with vents and pegs · 0 splines"],
     ["Deviation", "mean 0.18/0.21 mm, p95 1.00/1.30 mm vs the mesh master"],
-    ["Probes", "44/1491 flip on the body (lofted: 311)"],
+    ["Probes", "45/1491 flip on the body (lofted: 311)"],
     ["Vents", "16 × Ø20, all through"],
     ["Slot", "walls exactly ±20.5 mm, dovetail tabs kept"],
     ["Print", "PLA or PETG, 0.4 mm nozzle, no supports"]

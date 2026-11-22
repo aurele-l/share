@@ -84,9 +84,12 @@
   .map-tooltip p{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
   .map-tooltip-close{position:absolute;top:6px;right:6px;width:32px;height:32px;min-height:32px;border:none;border-radius:50%;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
   .map-tooltip-close:hover{background:var(--surface-2);color:var(--ink)}
-  .map-tooltip-link{display:inline-flex;align-items:center;gap:6px;margin-top:11px;min-height:38px;padding:7px 14px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-family:inherit;font-size:13.5px;font-weight:650;cursor:pointer}
+  .map-tooltip-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+  .map-tooltip-link{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:7px 14px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-family:inherit;font-size:13.5px;font-weight:650;cursor:pointer}
   .map-tooltip-link:active{transform:translateY(1px)}
-  .map-tooltip[hidden],.map-tooltip-link[hidden]{display:none}
+  .map-tooltip-maps{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:13.5px;font-weight:650;text-decoration:none;cursor:pointer}
+  .map-tooltip-maps:active{transform:translateY(1px)}
+  .map-tooltip[hidden],.map-tooltip-link[hidden],.map-tooltip-maps[hidden]{display:none}
   /* Full screen: the map column (map + legend) fills the screen */
   #map-column:fullscreen{background:var(--bg);padding:14px;overflow-y:auto}
   #map-column:fullscreen .map-card{position:relative;top:auto}
@@ -130,6 +133,10 @@
   .pin.me::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(26,115,232,.55);animation:me-pulse 2s ease-out infinite}
   @keyframes me-pulse{0%{transform:scale(.7);opacity:1}70%{transform:scale(1.9);opacity:0}100%{transform:scale(1.9);opacity:0}}
   @media (prefers-reduced-motion: reduce){.pin.me::after{animation:none;opacity:0}}
+  /* Live-location wrapper: the accuracy circle sits centred on the dot and
+     the whole wrapper is what gets translated as new fixes arrive */
+  .me-wrap{position:relative;width:20px;height:20px;display:grid;place-items:center}
+  .me-acc{position:absolute;left:50%;top:50%;border-radius:50%;background:rgba(26,115,232,.15);border:1.5px solid rgba(26,115,232,.55);pointer-events:none;display:none}
   .fb-me-circle{position:absolute;border-radius:50%;background:rgba(26,115,232,.15);border:1.5px solid rgba(26,115,232,.55);transform:translate(-50%,-50%);aspect-ratio:1;pointer-events:none;z-index:3}
   .fb-me-dot{position:absolute;width:16px;height:16px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.45);transform:translate(-50%,-50%);pointer-events:none;z-index:4}
   .swatch.me{background:rgba(26,115,232,.16)}
@@ -205,20 +212,23 @@
     <button class="btn" id="locate-btn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg><span id="locate-btn-label">Show my location</span></button>
   </div>
   <p class="locate-status" id="locate-status" role="status" aria-live="polite" hidden></p>
-  <div class="meta-row"><span>5 stops · numbered in visit order</span><span>Plus 1 architecture walk, 5 mural spots + 2 stations for reference</span><span>Tap any pin for its description — pins with full details link down to them</span><span>Full screen button is on the map</span></div>
+  <div class="meta-row"><span>5 stops · numbered in visit order</span><span>Plus 1 architecture walk, 5 mural spots + 2 stations for reference</span><span>Tap any pin for its description — every tooltip links out to Google Maps, and to the full details where there are any</span><span>Full screen button is on the map</span></div>
 
   <div class="layout">
     <div id="map-column">
       <div class="map-card">
         <div class="map-toolbar">
           <button class="map-tool-btn" id="fullscreen-btn" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg><span id="fullscreen-btn-label">Full screen</span></button>
-          <button class="map-tool-btn" id="locate-map-btn" type="button"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg><span>Show my location</span></button>
+          <button class="map-tool-btn" id="locate-map-btn" type="button"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg><span id="locate-map-btn-label">Show my location</span></button>
         </div>
         <div id="map-tooltip" class="map-tooltip" hidden>
           <button class="map-tooltip-close" id="map-tooltip-close" type="button" aria-label="Close description">×</button>
           <h3 id="map-tooltip-title"></h3>
           <p id="map-tooltip-desc"></p>
-          <button class="map-tooltip-link" id="map-tooltip-link" type="button" hidden>See full details ↓</button>
+          <div class="map-tooltip-actions">
+            <button class="map-tooltip-link" id="map-tooltip-link" type="button" hidden>See full details ↓</button>
+            <a class="map-tooltip-maps" id="map-tooltip-maps" href="#" target="_blank" rel="noopener" hidden>Open in Google Maps ↗</a>
+          </div>
         </div>
         <div id="map" role="img" aria-label="Map of Glasgow showing five numbered stops from Glasgow Cathedral in the east to the Botanic Gardens in the West End, an Old Town architecture walk route, and Glasgow Central and Queen Street stations for reference"></div>
         <div id="map-fallback">
@@ -254,7 +264,7 @@
           <div class="legend-item"><div class="swatch walk"><span class="walk-swatch-line"></span></div><p><strong>Old Town architecture walk — dotted line</strong><span>George Square &amp; City Chambers → George St → Merchant City (Ingram St, Albion St) → Trongate → up High Street to the Cathedral, following the streets. A walk, not a stop — the diamonds are its key buildings.</span></p></div>
           <div class="legend-item"><div class="swatch art">★</div><p><strong>Street art — City Centre Mural Trail</strong><span>Star pins are murals to spot as you pass, not itinerary stops — St Mungo, the Billy Connolly murals and more, listed under the stops.</span></p></div>
           <div class="legend-item"><div class="swatch station"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14"/><path d="M8 20l2.5-4M16 20l-2.5-4"/></svg></div><p><strong>Train stations — reference only</strong><span>Glasgow Queen Street (for the Cathedral end) and Glasgow Central — both a short walk from GoMA (3).</span></p></div>
-          <div class="legend-item"><div class="swatch me"><span class="me-dot"></span></div><p><strong>Your location — blue dot</strong><span>Appears only when you tap “Show my location” above and allow location access. The pale circle around it is how accurate the fix is, and the map centres on you.</span></p></div>
+          <div class="legend-item"><div class="swatch me"><span class="me-dot"></span></div><p><strong>Your location — blue dot</strong><span>Appears when you tap “Show my location” above and allow location access, then keeps updating live as you move until you tap “Stop tracking”. The pale circle around it is how accurate the fix is, and the map centres on you at the first fix.</span></p></div>
         </div>
         <p class="route-note">Numbers are visit order, not distance order on the map: east (1–2) → centre (3) → West End (4–5). The dotted walk covers the old town between the centre and the Cathedral, and the star murals sit along the way — St Mungo is right on the walk's High Street leg.</p>
       </div>
@@ -444,7 +454,7 @@
   var markerFn = function(place, index, selected){
     var g = place.group || "";
     var on = selected ? ' pin--on' : '';
-    if (g === "me") return '<div class="pin me" title="You are here"></div>';
+    if (g === "me") return '<div class="me-wrap"><span class="me-acc" aria-hidden="true"></span><div class="pin me" title="You are here"></div></div>';
     if (g === "station") return '<div class="pin station'+on+'" title="'+place.label+'">'+trainSvg+'</div>';
     if (g === "walk") return '<div class="pin walk'+on+'" title="'+place.label+'"></div>';
     if (g === "art") return '<div class="pin art'+on+'" title="'+place.label+'">★</div>';
@@ -477,6 +487,7 @@
   var tooltipTitle = document.getElementById("map-tooltip-title");
   var tooltipDesc = document.getElementById("map-tooltip-desc");
   var tooltipLink = document.getElementById("map-tooltip-link");
+  var tooltipMaps = document.getElementById("map-tooltip-maps");
   var tooltipClose = document.getElementById("map-tooltip-close");
   var mapCard = document.querySelector(".map-card");
   var currentTipIndex = null;
@@ -542,7 +553,7 @@
     } else {
       // The appended "you are here" point, and any point without data
       title = "You are here";
-      desc = "Your current location, from the “Show my location” button. Tap a numbered, diamond or star pin for its description.";
+      desc = "Your current location — while tracking is on, the dot updates live as you move. Tap a numbered, diamond or star pin for its description.";
       data = { target:null };
     }
     currentTipIndex = index;
@@ -554,6 +565,16 @@
       tooltipLink.textContent = data.link || "See full details ↓";
     } else {
       tooltipLink.hidden = true;
+    }
+    // Every point — stops, walk points, murals, the stations (which have no
+    // detailed description) and even "you are here" — also gets a link that
+    // opens that point in Google Maps in a new tab.
+    if (tooltipMaps) {
+      var mapsUrl = null;
+      if (places[index] && window.MapHelpers) mapsUrl = MapHelpers.mapsSearchUrl(places[index]);
+      else if (typeof lastPos !== "undefined" && lastPos) mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + lastPos.lat + "," + lastPos.lng;
+      if (mapsUrl) { tooltipMaps.href = mapsUrl; tooltipMaps.hidden = false; }
+      else tooltipMaps.hidden = true;
     }
     tooltipEl.hidden = false;
     positionTooltip(findTipAnchor(index));
@@ -675,36 +696,225 @@
   // ---- Show my location (browser geolocation) ----
   var locateBtn = document.getElementById("locate-btn");
   var locateLabel = document.getElementById("locate-btn-label");
+  var locateMapLabel = document.getElementById("locate-map-btn-label");
   var statusEl = document.getElementById("locate-status");
+
+  // ---- Live tracking state ----
+  // Location used to be a one-shot getCurrentPosition fix, so the dot froze
+  // where you first tapped the button. It is now a watchPosition stream:
+  // the first fix mounts the map on you (as before); every later fix moves
+  // the dot in place (see updateLivePosition) until you tap "Stop tracking".
+  var watchId = null;
+  var isWatching = false;
+  var hasFix = false;
+  var lastPos = null;      // latest fix {lat, lng, accuracy}
+  var mountPos = null;     // fix the current interactive map mount is anchored to
+  var mountZoom = 15;      // zoom that mount was created with
+  var liveOffset = { x:0, y:0 }; // px the dot has been shifted from mountPos
+  var lastRemountAt = 0;
+  var lastLiveStatusAt = 0;
+  var resyncTimer = null;
+
+  function updateLocateLabels(){
+    var txt = isWatching ? "Stop tracking" : "Show my location";
+    if (locateLabel) locateLabel.textContent = txt;
+    if (locateMapLabel) locateMapLabel.textContent = txt;
+  }
+  function stopWatching(){
+    if (watchId !== null && navigator.geolocation && navigator.geolocation.clearWatch) {
+      try { navigator.geolocation.clearWatch(watchId); } catch(e){}
+    }
+    watchId = null;
+    isWatching = false;
+    if (resyncTimer) { clearTimeout(resyncTimer); resyncTimer = null; }
+    setLocating(false);
+  }
+
+  // Web Mercator helpers — enough to turn a lat/lng delta into the pixel
+  // delta the dot has to move on a map mounted at mountZoom (512px tiles).
+  function mercX(lng){ return (lng + 180) / 360; }
+  function mercY(lat){
+    var s = Math.sin(lat * Math.PI / 180);
+    return 0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI);
+  }
+  function worldSizePx(){ return 512 * Math.pow(2, mountZoom); }
+  function distMeters(a, b){
+    var dx = (b.lng - a.lng) * 111320 * Math.cos(a.lat * Math.PI / 180);
+    var dy = (b.lat - a.lat) * 110540;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+  function findMePin(){
+    return mapEl ? mapEl.querySelector(".pin.me") : null;
+  }
+  // Size the DOM accuracy circle around the dot (it replaces the old
+  // GeoJSON accuracy polygon, which could not move with live fixes).
+  function applyAccuracyCircle(){
+    if (!lastPos || !mountPos || !mapEl) return;
+    var acc = mapEl.querySelector(".me-acc");
+    if (!acc) return;
+    if (!lastPos.accuracy) { acc.style.display = "none"; return; }
+    var mPerPx = 40075016.686 * Math.cos(mountPos.lat * Math.PI / 180) / worldSizePx();
+    var d = (2 * lastPos.accuracy) / (mPerPx > 0 ? mPerPx : 1);
+    d = Math.max(28, Math.min(d, 900));
+    acc.style.width = d + "px";
+    acc.style.height = d + "px";
+    acc.style.marginLeft = (-d / 2) + "px";
+    // +10px: the dot itself is shifted half its height down inside the
+    // wrapper (translateY(50%)), so the circle centres on the dot, not
+    // on the wrapper.
+    acc.style.marginTop = (-d / 2 + 10) + "px";
+    acc.style.display = "block";
+  }
+
+  // Full (re)mount of the interactive map centred on pos — used for the
+  // first fix, and to resync after the user pans/zooms or walks far enough
+  // that the in-place pixel shift would leave the dot off-screen.
+  function mountUserMap(pos){
+    mountPos = { lat:pos.lat, lng:pos.lng, accuracy:pos.accuracy };
+    mountZoom = zoomForAccuracy(pos.accuracy || 100);
+    liveOffset = { x:0, y:0 };
+    lastRemountAt = Date.now();
+    hideTooltip();
+    var userPlace = { label:"You are here", address:"", locality:"Glasgow", region:"Scotland", lat:pos.lat, lng:pos.lng, group:"me" };
+    try { map.destroy(); } catch(e){}
+    map = null;
+    try {
+      map = MapHelpers.mountMap(mapEl, {
+        places: places.concat([userPlace]),
+        baseStyle: "light",
+        overlays: [walkOverlay],
+        center: { lat: pos.lat, lng: pos.lng },
+        zoom: mountZoom,
+        marker: markerFn,
+        onSelectPlace: selectFn
+      }, function(){ showFallback(); drawFallbackDot(lastPos || pos); });
+    } catch(e){ showFallback(); drawFallbackDot(pos); }
+    if (map) {
+      // The marker renders asynchronously once the map loads — retry a few
+      // times so the accuracy circle gets sized whenever it appears.
+      [250, 700, 1400, 2500].forEach(function(t){ setTimeout(applyAccuracyCircle, t); });
+    }
+    return !!map;
+  }
+
+  function setLiveStatus(pos){
+    // The watch can fire every second; only refresh the (aria-live) status
+    // text a few times a minute so it reassures without chattering.
+    var now = Date.now();
+    if (now - lastLiveStatusAt < 5000) return;
+    lastLiveStatusAt = now;
+    var accText = pos.accuracy ? " (±" + Math.round(pos.accuracy) + " m accuracy)" : "";
+    var d = new Date();
+    function pad(n){ return (n < 10 ? "0" : "") + n; }
+    setStatus("Live location on — the blue dot is you" + accText + ", it updates as you move (last update " + pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds()) + ") and the map follows when you move on. Tap “Stop tracking” to turn it off.", "ok");
+  }
+
+  // Every fix after the first lands here: move the existing dot instead of
+  // remounting the whole map, so tracking is smooth and flicker-free.
+  function updateLivePosition(pos){
+    lastPos = pos;
+    var onFallback = !map || (fallback && fallback.style.display === "block");
+    if (onFallback) {
+      if (drawFallbackDot(pos)) setLiveStatus(pos);
+      else setStatus("Live location is on, but you're outside the area covered by this preview map, so there's no dot to show. Open the route in Google Maps to see yourself against the stops.", "error");
+      return;
+    }
+    var pin = findMePin();
+    var wrapEl = pin ? (pin.closest ? (pin.closest(".me-wrap") || pin) : pin) : null;
+    var ws = worldSizePx();
+    var dx = mountPos ? (mercX(pos.lng) - mercX(mountPos.lng)) * ws : 0;
+    var dy = mountPos ? (mercY(pos.lat) - mercY(mountPos.lat)) * ws : 0;
+    var tooFar = !mountPos || !wrapEl ||
+      Math.abs(dx) > (mapEl.clientWidth || 600) * 0.75 ||
+      Math.abs(dy) > (mapEl.clientHeight || 500) * 0.75 ||
+      distMeters(mountPos, pos) > 800;
+    if (tooFar) {
+      // Resync with a fresh mount centred on the new position — throttled,
+      // so a burst of fixes can't thrash the map.
+      if (Date.now() - lastRemountAt >= 4000) mountUserMap(pos);
+      setLiveStatus(pos);
+      return;
+    }
+    liveOffset = { x:dx, y:dy };
+    wrapEl.style.transform = "translate(" + dx + "px," + dy + "px)";
+    applyAccuracyCircle();
+    setLiveStatus(pos);
+  }
+
+  // Panning or zooming moves every real marker via the map library, but our
+  // dot's in-place shift is relative to the mount view — so after the user
+  // moves the map, resync once with a fresh mount on the latest fix.
+  function scheduleResync(){
+    if (!isWatching || !hasFix || !lastPos) return;
+    if (!liveOffset.x && !liveOffset.y) return;
+    if (resyncTimer) clearTimeout(resyncTimer);
+    resyncTimer = setTimeout(function(){
+      resyncTimer = null;
+      if (isWatching && lastPos && map) mountUserMap(lastPos);
+    }, 700);
+  }
+  if (mapEl) {
+    mapEl.addEventListener("wheel", scheduleResync, {passive:true});
+    mapEl.addEventListener("touchend", scheduleResync, {passive:true});
+    // A drag-pan does NOT invalidate the offset (relative pixel positions
+    // survive panning — only zoom changes them), so only resync after a
+    // click-like pointerup: a double-click zoom or a tap on the zoom
+    // controls. Dragging the map must not snap the view back to the user.
+    var downAt = null;
+    mapEl.addEventListener("pointerdown", function(e){
+      downAt = { x:e.clientX, y:e.clientY };
+    });
+    mapEl.addEventListener("pointerup", function(e){
+      if (e.target && e.target.closest && e.target.closest(".maplibregl-marker")) return;
+      if (downAt) {
+        var moved = Math.sqrt(Math.pow(e.clientX - downAt.x, 2) + Math.pow(e.clientY - downAt.y, 2));
+        downAt = null;
+        if (moved > 6) return; // it was a pan, not a zoom gesture
+      }
+      scheduleResync();
+    });
+  }
+  window.addEventListener("pagehide", function(){
+    if (watchId !== null && navigator.geolocation && navigator.geolocation.clearWatch) {
+      try { navigator.geolocation.clearWatch(watchId); } catch(e){}
+    }
+  });
+
+  function onWatchSuccess(position){
+    setLocating(false);
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      accuracy: position.coords.accuracy || 0
+    };
+    if (!hasFix) { hasFix = true; showUserOnMap(pos); }
+    else updateLivePosition(pos);
+  }
+  function onWatchError(err){
+    var code = err && err.code;
+    if (code === 1) { stopWatching(); locateError(err); return; }
+    // Timeout / position-unavailable inside a watch are usually transient —
+    // the watch keeps running and the next good fix lands on its own.
+    if (!hasFix) {
+      setLocating(false);
+      setStatus("Your location is taking a while — still trying. Check that location services are on and you have a clear GPS or Wi-Fi signal.", "error");
+    }
+  }
 
   function setStatus(msg, kind){
     if (!statusEl) return;
+    var cls = "locate-status" + (kind ? " " + kind : "");
+    // A live watch can repeat the same message — don't re-set identical
+    // text, or the aria-live region re-announces it every time.
+    if (!statusEl.hidden && statusEl.textContent === msg && statusEl.className === cls) return;
     statusEl.hidden = false;
     statusEl.textContent = msg;
-    statusEl.className = "locate-status" + (kind ? " " + kind : "");
+    statusEl.className = cls;
   }
   function setLocating(on){
     if (locateBtn) locateBtn.disabled = on;
-    if (locateLabel) locateLabel.textContent = on ? "Locating…" : "Show my location";
-  }
-
-  function accuracyOverlayFor(pos){
-    var pts = [];
-    var dLat = pos.accuracy / 111320;
-    var cos = Math.cos(pos.lat * Math.PI / 180);
-    var dLng = pos.accuracy / (111320 * (cos > 0.01 ? cos : 0.01));
-    for (var i = 0; i <= 64; i++){
-      var a = (i / 64) * Math.PI * 2;
-      pts.push([pos.lng + dLng * Math.cos(a), pos.lat + dLat * Math.sin(a)]);
-    }
-    return {
-      id: "my-accuracy",
-      data: { type:"FeatureCollection", features:[{ type:"Feature", properties:{}, geometry:{ type:"Polygon", coordinates:[pts] } }] },
-      layers: [
-        { id:"my-accuracy-fill", type:"fill", source:"my-accuracy", paint:{ "fill-color":"#1a73e8", "fill-opacity":0.15 } },
-        { id:"my-accuracy-line", type:"line", source:"my-accuracy", paint:{ "line-color":"#1a73e8", "line-width":1.5, "line-opacity":0.55 } }
-      ]
-    };
+    if (on) { if (locateLabel) locateLabel.textContent = "Locating…"; }
+    else updateLocateLabels();
   }
 
   function zoomForAccuracy(a){
@@ -742,30 +952,18 @@
   }
 
   function showUserOnMap(pos){
-    var accText = pos.accuracy ? " (±" + Math.round(pos.accuracy) + " m accuracy)" : "";
+    // First fix of a tracking session: mount the map on you (or draw the
+    // dot on the static fallback), then let later fixes stream in through
+    // updateLivePosition.
+    lastPos = pos;
+    lastLiveStatusAt = 0; // make sure the "live" status shows straight away
     if (map) {
-      var userPlace = { label:"You are here", address:"", locality:"Glasgow", region:"Scotland", lat:pos.lat, lng:pos.lng, group:"me" };
-      try { map.destroy(); } catch(e){}
-      map = null;
-      try {
-        map = MapHelpers.mountMap(mapEl, {
-          places: places.concat([userPlace]),
-          baseStyle: "light",
-          overlays: [accuracyOverlayFor(pos), walkOverlay],
-          center: { lat: pos.lat, lng: pos.lng },
-          zoom: zoomForAccuracy(pos.accuracy || 100),
-          marker: markerFn,
-          onSelectPlace: selectFn
-        }, function(){ showFallback(); drawFallbackDot(pos); });
-      } catch(e){ showFallback(); drawFallbackDot(pos); }
-      if (map) {
-        setStatus("Found you — the blue dot is your location" + accText + ", and the map is centred on it. Tap “Show my location” again to update it.", "ok");
-        return;
-      }
+      if (mountUserMap(pos)) { setLiveStatus(pos); return; }
     }
     if (drawFallbackDot(pos)) {
-      setStatus("Found you — the blue dot on the map is your location" + accText + ".", "ok");
+      setLiveStatus(pos);
     } else {
+      var accText = pos.accuracy ? " (±" + Math.round(pos.accuracy) + " m accuracy)" : "";
       setStatus("Found you" + accText + ", but you're outside the area covered by this preview map, so there's no dot to show. Open the route in Google Maps to see yourself against the stops.", "error");
     }
   }
@@ -780,6 +978,12 @@
 
   if (locateBtn) {
     locateBtn.addEventListener("click", function(){
+      // Second tap stops the live watch; the dot stays at the last fix.
+      if (isWatching) {
+        stopWatching();
+        setStatus("Live location off — the blue dot stays where you were last found. Tap “Show my location” to start tracking again.", "");
+        return;
+      }
       if (!("geolocation" in navigator)) {
         setStatus("Location isn't available in this browser, so your position can't be shown. Try opening this page in a current browser with location services on.", "error");
         return;
@@ -789,17 +993,29 @@
         return;
       }
       setLocating(true);
-      setStatus("Asking for your location… if your browser shows a permission prompt, choose Allow.", "");
+      setStatus("Asking for your location… if your browser shows a permission prompt, choose Allow. Once you're found, the dot keeps updating as you move.", "");
       try {
-        navigator.geolocation.getCurrentPosition(function(position){
-          setLocating(false);
-          showUserOnMap({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            accuracy: position.coords.accuracy || 0
-          });
-        }, locateError, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+        if (navigator.geolocation.watchPosition) {
+          // Continuous tracking: fixes keep arriving until the user stops
+          // the watch (or the page is closed) — no more frozen dot.
+          isWatching = true;
+          hasFix = false;
+          watchId = navigator.geolocation.watchPosition(onWatchSuccess, onWatchError, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+        } else {
+          // Ancient browsers without watchPosition: one-shot fix, as before.
+          navigator.geolocation.getCurrentPosition(function(position){
+            setLocating(false);
+            hasFix = true;
+            showUserOnMap({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+              accuracy: position.coords.accuracy || 0
+            });
+          }, locateError, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+        }
       } catch(e){
+        isWatching = false;
+        watchId = null;
         setLocating(false);
         setStatus("Your location is unavailable right now — your device couldn't produce a position. Check that location services are on, then try again.", "error");
       }

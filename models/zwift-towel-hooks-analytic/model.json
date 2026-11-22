@@ -2,7 +2,7 @@
   "order": 20,
   "title": "Zwift Ride container — proper analytic rebuild",
   "date": "2026-11-22",
-  "summary": "The vented towel-hook container rebuilt as proper CAD: one analytic face per design surface, 134 faces and zero splines where the lofted attempt had 7,524.",
+  "summary": "The vented towel-hook container rebuilt as proper CAD: one analytic face per design surface, 170 faces and zero splines where the lofted attempt had 7,524.",
   "lede": "The same printed part as the towel-hook container — both bins, the clamp, sixteen Ø20 vents and the two hook pegs — rebuilt from measured planes, cylinders and tangent fillets instead of lofted mesh sections. Every wall is one face, every fillet one cylinder, every vent one bore. Drag the tiles: with the cameras linked, the only difference you are looking at is the construction.",
   "source": {
     "title": "Zwift Ride Containers/Storage",
@@ -12,7 +12,7 @@
     "licence": "CC BY-NC 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-nc/4.0/"
   },
-  "meta": "229 × 108 × 80 mm · 182.6 cm³",
+  "meta": "229 × 108 × 80 mm · 183.1 cm³",
   "thumb": "proper.glb",
   "thumbOrbit": "30deg 72deg 60%",
   "compare": {
@@ -29,7 +29,7 @@
       {
         "glb": "proper.glb",
         "label": "Proper rebuild",
-        "detail": "229 × 107.9 × 80 mm · 182.6 cm³ · 180 faces",
+        "detail": "229 × 107.9 × 80 mm · 183.1 cm³ · 216 faces",
         "orbit": "20deg 74deg 105%",
         "alt": "The same part rebuilt as proper CAD, one face per surface",
         "lead": true
@@ -44,7 +44,7 @@
         {
           "glb": "proper-edges.glb",
           "label": "Face layout",
-          "detail": "134 faces · 0 splines",
+          "detail": "170 faces · 0 splines",
           "orbit": "20deg 74deg 105%",
           "alt": "The analytic rebuild with every face boundary drawn"
         },
@@ -61,9 +61,9 @@
   ],
   "specs": [
     ["Overall", "229 × 107.9 × 80 mm"],
-    ["Volume", "182.6 cm³"],
-    ["Faces", "134 body · 180 with vents and pegs · 0 splines"],
-    ["Deviation", "mean 0.18/0.21 mm, p95 1.00/1.30 mm vs the mesh master"],
+    ["Volume", "183.1 cm³"],
+    ["Faces", "170 body · 216 with vents and pegs · 0 splines"],
+    ["Deviation", "mean 0.17/0.21 mm, p95 1.00/1.27 mm vs the mesh master"],
     ["Probes", "45/1491 flip on the body (lofted: 311)"],
     ["Vents", "16 × Ø20, all through"],
     ["Slot", "walls exactly ±20.5 mm, dovetail tabs kept"],

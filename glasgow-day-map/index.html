@@ -89,10 +89,7 @@
   .map-tooltip-link:active{transform:translateY(1px)}
   .map-tooltip-maps{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:13.5px;font-weight:650;text-decoration:none;cursor:pointer}
   .map-tooltip-maps:active{transform:translateY(1px)}
-  .map-tooltip-route{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:7px 14px;border-radius:999px;border:1px solid #1a73e8;background:var(--surface);color:#1a73e8;font-family:inherit;font-size:13.5px;font-weight:650;cursor:pointer}
-  @media (prefers-color-scheme: dark){.map-tooltip-route{color:#7db3f8;border-color:#7db3f8}}
-  .map-tooltip-route:active{transform:translateY(1px)}
-  .map-tooltip[hidden],.map-tooltip-link[hidden],.map-tooltip-maps[hidden],.map-tooltip-route[hidden]{display:none}
+  .map-tooltip[hidden],.map-tooltip-link[hidden],.map-tooltip-maps[hidden]{display:none}
   /* Location overlay: the blue dot, its accuracy circle and the route line
      live here, above the map but below the toolbar/tooltip. The map itself
      is never remounted for location — only these elements move. */
@@ -232,7 +229,7 @@
     <button class="btn" id="locate-btn" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg><span id="locate-btn-label">Show my location</span></button>
   </div>
   <p class="locate-status" id="locate-status" role="status" aria-live="polite" hidden></p>
-  <div class="meta-row"><span>5 stops · numbered in visit order</span><span>Plus 1 architecture walk, 5 mural spots + 2 stations for reference</span><span>Tap any pin for its description — tooltips link out to Google Maps, to the full details where there are any, and can draw the walking route from your location to that point, following the streets</span><span>Full screen button is on the map</span></div>
+  <div class="meta-row"><span>5 stops · numbered in visit order</span><span>Plus 1 architecture walk, 5 mural spots + 2 stations for reference</span><span>Tap any pin for its description — tooltips link out to Google Maps and to the full details where there are any. If you're sharing your location, tapping a pin also draws the walking route from where you are to that point, following the streets</span><span>Full screen button is on the map</span></div>
 
   <div class="layout">
     <div id="map-column">
@@ -247,7 +244,6 @@
           <p id="map-tooltip-desc"></p>
           <div class="map-tooltip-actions">
             <button class="map-tooltip-link" id="map-tooltip-link" type="button" hidden>See full details ↓</button>
-            <button class="map-tooltip-route" id="map-tooltip-route" type="button" hidden>Route from my location</button>
             <a class="map-tooltip-maps" id="map-tooltip-maps" href="#" target="_blank" rel="noopener" hidden>Open in Google Maps ↗</a>
           </div>
         </div>
@@ -295,7 +291,7 @@
           <div class="legend-item"><div class="swatch art">★</div><p><strong>Street art — City Centre Mural Trail</strong><span>Star pins are murals to spot as you pass, not itinerary stops — St Mungo, the Billy Connolly murals and more, listed under the stops.</span></p></div>
           <div class="legend-item"><div class="swatch station"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14"/><path d="M8 20l2.5-4M16 20l-2.5-4"/></svg></div><p><strong>Train stations — reference only</strong><span>Glasgow Queen Street (for the Cathedral end) and Glasgow Central — both a short walk from GoMA (3).</span></p></div>
           <div class="legend-item"><div class="swatch me"><span class="me-dot"></span></div><p><strong>Your location — blue dot</strong><span>Appears when you tap “Show my location” above and allow location access, then keeps updating live as you move until you tap “Stop tracking”. Only the dot moves — and the pale circle around it, which is how accurate the fix is; the map itself stays exactly where it is.</span></p></div>
-          <div class="legend-item"><div class="swatch walk"><span class="route-swatch-line"></span></div><p><strong>Your walking route — blue line</strong><span>Tap any pin, then “Route from my location” in its tooltip: the blue line is the walking route from where you are to that point, following the streets, with the distance and walking time in the bar on the map. It redraws as you move; clear it from that bar.</span></p></div>
+          <div class="legend-item"><div class="swatch walk"><span class="route-swatch-line"></span></div><p><strong>Your walking route — blue line</strong><span>While you're sharing your location, tap any pin: the blue line is the walking route from where you are to that point, following the streets, with the distance and walking time in the bar on the map. It redraws as you move; clear it from that bar.</span></p></div>
         </div>
         <p class="route-note">Numbers are visit order, not distance order on the map: east (1–2) → centre (3) → West End (4–5). The dotted walk covers the old town between the centre and the Cathedral, and the star murals sit along the way — St Mungo is right on the walk's High Street leg.</p>
       </div>
@@ -518,7 +514,6 @@
   var tooltipTitle = document.getElementById("map-tooltip-title");
   var tooltipDesc = document.getElementById("map-tooltip-desc");
   var tooltipLink = document.getElementById("map-tooltip-link");
-  var tooltipRoute = document.getElementById("map-tooltip-route");
   var tooltipMaps = document.getElementById("map-tooltip-maps");
   var tooltipClose = document.getElementById("map-tooltip-close");
   var mapCard = document.querySelector(".map-card");
@@ -606,9 +601,6 @@
     } else {
       tooltipLink.hidden = true;
     }
-    // Every real point also offers a street-following walking route drawn
-    // on the map from your location to that point. "You are here" doesn't.
-    if (tooltipRoute) tooltipRoute.hidden = !places[index];
     // Every point — stops, walk points, murals, the stations (which have no
     // detailed description) and even "you are here" — also gets a link that
     // opens that point in Google Maps in a new tab.
@@ -621,13 +613,18 @@
     }
     tooltipEl.hidden = false;
     positionTooltip(findTipAnchor(index));
+    // No route button: if you're sharing your location, every tap on a
+    // point draws the street-following walking route from where you are
+    // to that point automatically. "You are here" (index beyond places)
+    // and taps made while location is off just show the tooltip.
+    if (places[index] && typeof lastPos !== "undefined" && lastPos && typeof fetchRoute === "function") {
+      var alreadyRouted = typeof currentRoute !== "undefined" && currentRoute && currentRoute.destIndex === index &&
+        typeof routeOriginPos !== "undefined" && routeOriginPos &&
+        typeof distMeters === "function" && distMeters(routeOriginPos, lastPos) < 40;
+      if (!alreadyRouted) fetchRoute(index, false);
+    }
   }
   if (tooltipClose) tooltipClose.addEventListener("click", function(){ hideTooltip(); });
-  if (tooltipRoute) tooltipRoute.addEventListener("click", function(){
-    // startRouteTo is defined with the location code below; it draws the
-    // route from the latest fix, or finds your location first if needed.
-    if (typeof startRouteTo === "function") startRouteTo(currentTipIndex);
-  });
   if (tooltipLink) tooltipLink.addEventListener("click", function(){
     var index = currentTipIndex;
     var data = index !== null ? tooltipData[index] : null;
@@ -952,17 +949,6 @@
       }
     });
   }
-  function startRouteTo(index){
-    if (index === null || index === undefined || !places[index]) return;
-    hideTooltip();
-    if (lastPos) { fetchRoute(index, false); return; }
-    // No fix yet: remember the destination and start locating — the first
-    // fix to arrive draws the route automatically (see onWatchSuccess).
-    pendingRouteIndex = index;
-    setStatus("Finding your location first, so the route can start from where you are…", "");
-    if (!isWatching && locateBtn) locateBtn.click();
-  }
-
   function setLiveStatus(pos){
     // The watch can fire every second; only refresh the (aria-live) status
     // text a few times a minute so it reassures without chattering.

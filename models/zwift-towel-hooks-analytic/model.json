@@ -39,7 +39,7 @@
   "groups": [
     {
       "title": "One face per surface",
-      "note": "The rebuild's face boundaries drawn as geometry: walls are single planes, fillets single cylinders, vents single bores. 114 faces on the body where the lofted attempt had 7,524, and not one of them a spline.",
+      "note": "The rebuild's face boundaries drawn as geometry: walls are single planes, fillets single cylinders, vents single bores. 134 faces on the body where the lofted attempt had 7,524, and not one of them a spline.",
       "views": [
         {
           "glb": "proper-edges.glb",

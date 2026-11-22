@@ -2,7 +2,7 @@
   "order": 20,
   "title": "Zwift Ride container — proper analytic rebuild",
   "date": "2026-11-22",
-  "summary": "The vented towel-hook container rebuilt as proper CAD: one analytic face per design surface, 104 faces and zero splines where the lofted attempt had 7,524.",
+  "summary": "The vented towel-hook container rebuilt as proper CAD: one analytic face per design surface, 106 faces and zero splines where the lofted attempt had 7,524.",
   "lede": "The same printed part as the towel-hook container — both bins, the clamp, sixteen Ø20 vents and the two hook pegs — rebuilt from measured planes, cylinders and tangent fillets instead of lofted mesh sections. Every wall is one face, every fillet one cylinder, every vent one bore. Drag the tiles: with the cameras linked, the only difference you are looking at is the construction.",
   "source": {
     "title": "Zwift Ride Containers/Storage",
@@ -12,7 +12,7 @@
     "licence": "CC BY-NC 4.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-nc/4.0/"
   },
-  "meta": "229 × 108 × 80 mm · 181.9 cm³",
+  "meta": "229 × 108 × 80 mm · 181.8 cm³",
   "thumb": "proper.glb",
   "thumbOrbit": "30deg 72deg 60%",
   "compare": {
@@ -29,7 +29,7 @@
       {
         "glb": "proper.glb",
         "label": "Proper rebuild",
-        "detail": "229 × 107.9 × 80 mm · 181.9 cm³ · 148 faces",
+        "detail": "229 × 107.9 × 80 mm · 181.8 cm³ · 150 faces",
         "orbit": "20deg 74deg 105%",
         "alt": "The same part rebuilt as proper CAD, one face per surface",
         "lead": true
@@ -39,12 +39,12 @@
   "groups": [
     {
       "title": "One face per surface",
-      "note": "The rebuild's face boundaries drawn as geometry: walls are single planes, fillets single cylinders, vents single bores. 104 faces on the body where the lofted attempt had 7,524, and not one of them a spline.",
+      "note": "The rebuild's face boundaries drawn as geometry: walls are single planes, fillets single cylinders, vents single bores. 106 faces on the body where the lofted attempt had 7,524, and not one of them a spline.",
       "views": [
         {
           "glb": "proper-edges.glb",
           "label": "Face layout",
-          "detail": "104 faces · 0 splines",
+          "detail": "106 faces · 0 splines",
           "orbit": "20deg 74deg 105%",
           "alt": "The analytic rebuild with every face boundary drawn"
         },
@@ -61,17 +61,17 @@
   ],
   "specs": [
     ["Overall", "229 × 107.9 × 80 mm"],
-    ["Volume", "181.9 cm³"],
-    ["Faces", "104 body · 148 with vents and pegs · 0 splines"],
-    ["Deviation", "mean 0.20/0.23 mm, p95 1.11/1.38 mm vs the mesh master"],
-    ["Probes", "50/1491 flip on the body (lofted: 311)"],
+    ["Volume", "181.8 cm³"],
+    ["Faces", "106 body · 150 with vents and pegs · 0 splines"],
+    ["Deviation", "mean 0.19/0.22 mm, p95 1.00/1.38 mm vs the mesh master"],
+    ["Probes", "48/1491 flip on the body (lofted: 311)"],
     ["Vents", "16 × Ø20, all through"],
     ["Slot", "walls exactly ±20.5 mm, dovetail tabs kept"],
     ["Print", "PLA or PETG, 0.4 mm nozzle, no supports"]
   ],
   "notes": [
     "The first analytic attempt lofted measured mesh sections and baked every mesh wiggle into 7,116 spline patches, which tessellate as visible triangulation. This rebuild measures the walls as planes, the fillets as cylinders and the rim as bars, then extrudes and fuses them — the faces you see outlined here are the actual CAD faces.",
-    "Honestly reported: the rebuild ties the lofted version on mean deviation (0.20 vs 0.19 mm) and trails it slightly at p95 (1.38 vs 0.81 mm). The remaining hotspots are the divider plug transition, the tip nose rounding and the unclaimed embossing — named in the decisions log, not hidden.",
+    "Honestly reported: the rebuild ties the lofted version on mean deviation (0.19 vs 0.17 mm) and trails it at p95 (1.38 vs 1.00 mm, identical sampling). The remaining hotspots are the divider jaw transition, the tip nose rounding and the unclaimed embossing — named in the decisions log, not hidden.",
     "The printable file is the STEP: slice that, not the reference STL. The rail-fit gauge print and a towel on the hook are still unverified — theory until then."
   ],
   "downloads": [

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zwift Ride container — proper analytic rebuild — 3D models</title>
+<meta name="description" content="The vented towel-hook container rebuilt as proper CAD: one analytic face per design surface, 104 faces and zero splines where the lofted attempt had 7,524.">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Zwift Ride container — proper analytic rebuild — 3D models">
+<meta property="og:description" content="The vented towel-hook container rebuilt as proper CAD: one analytic face per design surface, 104 faces and zero splines where the lofted attempt had 7,524.">
+<link rel="icon" href="../../assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="module" src="../../assets/vendor/model-viewer.min.js"></script>
+<script type="module" src="../../assets/viewer.js"></script>
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="mark" href="../../index.html">3D models</a>
+  <nav><a href="https://github.com/aurele-l/shared_3d_models">GitHub</a></nav>
+</div></header>
+<main class="wrap">
+<div class="title-block">
+<p class="eyebrow">2026-11-22</p>
+<h1>Zwift Ride container — proper analytic rebuild</h1>
+<p class="lede">The same printed part as the towel-hook container — both bins, the clamp, sixteen Ø20 vents and the two hook pegs — rebuilt from measured planes, cylinders and tangent fillets instead of lofted mesh sections. Every wall is one face, every fillet one cylinder, every vent one bore. Drag the tiles: with the cameras linked, the only difference you are looking at is the construction.</p>
+<p class="source">Adapted from <a href="https://makerworld.com/en/models/2250329-zwift-ride-containers-storage">Zwift Ride Containers/Storage</a> by abuck on MakerWorld, licensed <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.</p>
+</div>
+<div class="actions"><a class="button" href="towel-hook-proper.stl" download>towel-hook-proper.stl<span>0.6 MB</span></a><a class="button" href="towel-hook-proper.step" download>towel-hook-proper.step<span>0.7 MB</span></a></div>
+<section class="block"><div class="block-head"><h2>Mesh master, and proper rebuild</h2><label class="toggle"><input type="checkbox" data-link-toggle checked> cameras linked</label></div><p class="block-note">Left is the proven mesh part. Right is the analytic rebuild: same vents, same pegs, same slot. With the cameras linked, dragging either tile keeps both on the same angle.</p><div class="pair"><figure class="view">
+  <model-viewer src="mesh.glb" alt="The proven mesh part with towel hooks and vents" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="20deg 74deg 105%" data-link="compare"></model-viewer>
+  <figcaption><b>Mesh master</b><span>229 × 108.2 × 80 mm · 181.4 cm³</span></figcaption>
+</figure><figure class="view">
+  <model-viewer src="proper.glb" alt="The same part rebuilt as proper CAD, one face per surface" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="20deg 74deg 105%" data-link="compare" data-lead></model-viewer>
+  <figcaption><b>Proper rebuild</b><span>229 × 107.9 × 80 mm · 181.9 cm³ · 148 faces</span></figcaption>
+</figure></div></section>
+<section class="block"><h2>One face per surface</h2><p class="block-note">The rebuild&#x27;s face boundaries drawn as geometry: walls are single planes, fillets single cylinders, vents single bores. 104 faces on the body where the lofted attempt had 7,524, and not one of them a spline.</p><div class="pair detail"><figure class="view detail">
+  <model-viewer src="proper-edges.glb" alt="The analytic rebuild with every face boundary drawn" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="20deg 74deg 105%"></model-viewer>
+  <figcaption><b>Face layout</b><span>104 faces · 0 splines</span></figcaption>
+</figure><figure class="view detail">
+  <model-viewer src="proper-edges.glb" alt="Top-down view of the rim bars and vent bores with edges shown" camera-controls touch-action="pan-y" max-camera-orbit="auto auto 250%" shadow-intensity="1.2" shadow-softness="0.85" tone-mapping="aces" interaction-prompt="none" exposure="0.9" camera-orbit="0deg 88deg 60%" loading="lazy"></model-viewer>
+  <figcaption><b>Rim and bores</b><span>round rims · Ø20 bores</span></figcaption>
+</figure></div></section>
+<div class="cols"><section><h2>Specs</h2><dl class="specs"><div><dt>Overall</dt><dd>229 × 107.9 × 80 mm</dd></div><div><dt>Volume</dt><dd>181.9 cm³</dd></div><div><dt>Faces</dt><dd>104 body · 148 with vents and pegs · 0 splines</dd></div><div><dt>Deviation</dt><dd>mean 0.20/0.23 mm, p95 1.11/1.38 mm vs the mesh master</dd></div><div><dt>Probes</dt><dd>50/1491 flip on the body (lofted: 311)</dd></div><div><dt>Vents</dt><dd>16 × Ø20, all through</dd></div><div><dt>Slot</dt><dd>walls exactly ±20.5 mm, dovetail tabs kept</dd></div><div><dt>Print</dt><dd>PLA or PETG, 0.4 mm nozzle, no supports</dd></div></dl></section><section class="prose"><h2>Why it is built this way</h2><p>The first analytic attempt lofted measured mesh sections and baked every mesh wiggle into 7,116 spline patches, which tessellate as visible triangulation. This rebuild measures the walls as planes, the fillets as cylinders and the rim as bars, then extrudes and fuses them — the faces you see outlined here are the actual CAD faces.</p><p>Honestly reported: the rebuild ties the lofted version on mean deviation (0.20 vs 0.19 mm) and trails it slightly at p95 (1.38 vs 0.81 mm). The remaining hotspots are the divider plug transition, the tip nose rounding and the unclaimed embossing — named in the decisions log, not hidden.</p><p>The printable file is the STEP: slice that, not the reference STL. The rail-fit gauge print and a towel on the hook are still unverified — theory until then.</p></section></div>
+</main>
+<footer class="site-foot"><div class="wrap"><p>Drag a model to orbit, scroll to zoom. Download the STL to print your own.</p><p class="licence">Models <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> &middot; site code <a href="https://github.com/aurele-l/shared_3d_models/blob/main/LICENSE-MIT">MIT</a></p></div></footer>
+</body>
+</html>

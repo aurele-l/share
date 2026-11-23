@@ -39,7 +39,7 @@
   "groups": [
     {
       "title": "One face per surface",
-      "note": "The rebuild's face boundaries drawn as geometry: walls are single planes, fillets single cylinders, vents single bores. 134 faces on the body where the lofted attempt had 7,524, and not one of them a spline.",
+      "note": "The rebuild's face boundaries drawn as geometry: walls are single planes, fillets single cylinders, vents single bores. 142 faces on the body where the lofted attempt had 7,524, and not one of them a spline.",
       "views": [
         {
           "glb": "proper-edges.glb",
@@ -71,7 +71,7 @@
   ],
   "notes": [
     "The first analytic attempt lofted measured mesh sections and baked every mesh wiggle into 7,116 spline patches, which tessellate as visible triangulation. This rebuild measures the walls as planes, the fillets as cylinders and the rim as bars, then extrudes and fuses them — the faces you see outlined here are the actual CAD faces.",
-    "Honestly reported: the rebuild ties the lofted version on mean deviation (0.18 vs 0.17 mm) and trails it at p95 (1.30 vs 1.00 mm, identical sampling). The remaining hotspots are the divider jaw transition, the tip nose rounding and the unclaimed embossing — named in the decisions log, not hidden.",
+    "Honestly reported: the rebuild ties the lofted version on mean deviation (0.15 vs 0.17 mm) and trails it at p95 (1.02 vs 1.00 mm, identical sampling). The remaining hotspots are the divider jaw transition, the tip nose rounding and the unclaimed embossing — named in the decisions log, not hidden.",
     "The printable file is the STEP: slice that, not the reference STL. The rail-fit gauge print and a towel on the hook are still unverified — theory until then."
   ],
   "downloads": [

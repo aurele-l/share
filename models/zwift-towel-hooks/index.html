@@ -17,7 +17,7 @@
 <body>
 <header class="site-head"><div class="wrap">
   <a class="mark" href="../../index.html">3D models</a>
-  <nav><a href="https://github.com/aurele-l/shared_3d_models">GitHub</a></nav>
+  <nav><a href="https://github.com/aurele-l/share">GitHub</a></nav>
 </div></header>
 <main class="wrap">
 <div class="title-block">
@@ -43,6 +43,6 @@
 </figure></div></section>
 <div class="cols"><section><h2>Specs</h2><dl class="specs"><div><dt>Overall</dt><dd>229 × 108.2 × 80 mm</dd></div><div><dt>Volume</dt><dd>181.4 cm³</dd></div><div><dt>Walls</dt><dd>3.0 mm side, 4.7 mm floor</dd></div><div><dt>Hook</dt><dd>45° peg, 4 mm thick, 10 mm clear of the wall</dd></div><div><dt>Protrusion</dt><dd>+14 mm per side</dd></div><div><dt>Print</dt><dd>PLA or PETG, 0.4 mm nozzle, no supports</dd></div></dl></section><section class="prose"><h2>Why it is built this way</h2><p>A towel on a hook is a peel load: the pull is perpendicular to the surface the hook sits on. On a 3 mm panel that is the failure mode — the hook survives and the wall cracks out around it. So the hooks sit at the top of the side walls, where the pull goes into the rim instead of bending a free panel, and the root is a wide pad rather than a thin stem.</p><p>Layer lines run horizontally, which puts the arm&#x27;s bending tension along the layers instead of across them. The web under the arm is 45°, the stop at its end is 45°, and the only horizontal face below the arm is an 8 mm strip that bridges — so the part prints without supports.</p><p>The source mesh is not manifold: 3 934 self-intersecting triangles and an uncapped face on the central boss. Bambu Studio repairs that silently, a boolean engine will not, so the hook was merged into a mesh repaired by filling the open boundary and nothing else. A heavier repair bought watertightness by deleting the embossing and a Z cut-out, which is why the mesh is proven against frozen probes rather than trusted after one render.</p></section></div>
 </main>
-<footer class="site-foot"><div class="wrap"><p>Drag a model to orbit, scroll to zoom. Download the STL to print your own.</p><p class="licence">Models <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> &middot; site code <a href="https://github.com/aurele-l/shared_3d_models/blob/main/LICENSE-MIT">MIT</a></p></div></footer>
+<footer class="site-foot"><div class="wrap"><p>Drag a model to orbit, scroll to zoom. Download the STL to print your own.</p><p class="licence">Models <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> &middot; site code <a href="https://github.com/aurele-l/share/blob/main/LICENSE-MIT">MIT</a></p></div></footer>
 </body>
 </html>

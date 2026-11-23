@@ -1,10 +1,10 @@
-# Project: shared_3d_models
+# Project: share
 
 ## Goal
 
 A public, static site that shows the 3D models I print: each one an orbitable
 `<model-viewer>` page with a printable STL to download. Published at
-https://aurele-l.github.io/shared_3d_models/ from `main`, repo root.
+https://aurele-l.github.io/share/ from `main`, repo root.
 
 The workshop stays private: CAD, tests, and source meshes live in
 `C:\Users\micro\code\3d_modelling`. This repo holds only what is shared, and the

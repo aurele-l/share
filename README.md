@@ -1,7 +1,7 @@
-# shared_3d_models
+# share
 
 3D-printable models I design in code, published as a static site:
-**https://aurele-l.github.io/shared_3d_models/**
+**https://aurele-l.github.io/share/**
 
 Every model is an orbitable page with a downloadable STL. The CAD, the tests and
 the third-party source meshes live in a private modelling repo — this one holds

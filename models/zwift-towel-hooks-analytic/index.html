@@ -17,7 +17,7 @@
 <body>
 <header class="site-head"><div class="wrap">
   <a class="mark" href="../../index.html">3D models</a>
-  <nav><a href="https://github.com/aurele-l/shared_3d_models">GitHub</a></nav>
+  <nav><a href="https://github.com/aurele-l/share">GitHub</a></nav>
 </div></header>
 <main class="wrap">
 <div class="title-block">
@@ -43,6 +43,6 @@
 </figure></div></section>
 <div class="cols"><section><h2>Specs</h2><dl class="specs"><div><dt>Overall</dt><dd>229 × 107.9 × 80 mm</dd></div><div><dt>Volume</dt><dd>175.9 cm³</dd></div><div><dt>Faces</dt><dd>142 body · 188 with vents and pegs · 0 splines</dd></div><div><dt>Deviation</dt><dd>mean 0.15/0.18 mm, p95 0.71/1.02 mm vs the mesh master</dd></div><div><dt>Probes</dt><dd>34/1491 flip on the body (lofted: 311)</dd></div><div><dt>Vents</dt><dd>16 × Ø20, all through</dd></div><div><dt>Slot</dt><dd>walls exactly ±20.5 mm, dovetail tabs kept</dd></div><div><dt>Print</dt><dd>PLA or PETG, 0.4 mm nozzle, no supports</dd></div></dl></section><section class="prose"><h2>Why it is built this way</h2><p>The first analytic attempt lofted measured mesh sections and baked every mesh wiggle into 7,116 spline patches, which tessellate as visible triangulation. This rebuild measures the walls as planes, the fillets as cylinders and the rim as bars, then extrudes and fuses them — the faces you see outlined here are the actual CAD faces.</p><p>Honestly reported: the rebuild ties the lofted version on mean deviation (0.15 vs 0.17 mm) and trails it at p95 (1.02 vs 1.00 mm, identical sampling). The remaining hotspots are the divider jaw transition, the tip nose rounding and the unclaimed embossing — named in the decisions log, not hidden.</p><p>The printable file is the STEP: slice that, not the reference STL. The rail-fit gauge print and a towel on the hook are still unverified — theory until then.</p></section></div>
 </main>
-<footer class="site-foot"><div class="wrap"><p>Drag a model to orbit, scroll to zoom. Download the STL to print your own.</p><p class="licence">Models <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> &middot; site code <a href="https://github.com/aurele-l/shared_3d_models/blob/main/LICENSE-MIT">MIT</a></p></div></footer>
+<footer class="site-foot"><div class="wrap"><p>Drag a model to orbit, scroll to zoom. Download the STL to print your own.</p><p class="licence">Models <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> &middot; site code <a href="https://github.com/aurele-l/share/blob/main/LICENSE-MIT">MIT</a></p></div></footer>
 </body>
 </html>

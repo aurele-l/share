@@ -33,7 +33,7 @@ in Python, so a layout change is a code change.
 
 **Chosen:** this repo owns the conversion (STL/3MF → web GLB) and reads the
 private modelling repo through a `publish` block in `model.json`.
-**Rejected:** a publisher in the modelling repo writing into `../shared_3d_models`.
+**Rejected:** a publisher in the modelling repo writing into `../share`.
 **Why:** the public repo stays self-contained and reproducible from a clone; the
 workshop needs no site-specific code, and `publish.py` only ever reads from it.
 Cost: a second venv (trimesh, numpy, networkx, scipy, pymeshfix), pinned to the

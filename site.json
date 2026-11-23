@@ -2,10 +2,10 @@
   "title": "3D models",
   "tagline": "Parametric parts, modelled in code and printed at home.",
   "description": "3D-printable models you can orbit in the browser and download as STL.",
-  "repo": "https://github.com/aurele-l/shared_3d_models",
+  "repo": "https://github.com/aurele-l/share",
   "footer": "Drag a model to orbit, scroll to zoom. Download the STL to print your own.",
   "licence": {
     "models": {"label": "CC BY-NC 4.0", "url": "https://creativecommons.org/licenses/by-nc/4.0/"},
-    "code": {"label": "MIT", "url": "https://github.com/aurele-l/shared_3d_models/blob/main/LICENSE-MIT"}
+    "code": {"label": "MIT", "url": "https://github.com/aurele-l/share/blob/main/LICENSE-MIT"}
   }
 }
